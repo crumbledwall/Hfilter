@@ -1,0 +1,45 @@
+{
+  "name": "hfilter",
+  "version": "1.0.0",
+  "main": "dist/main/index.cjs",
+  "author": "crumbledwall <mail@harmless.blue>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node scripts/watch.mjs",
+    "build": "vue-tsc --project packages/renderer/tsconfig.json --noEmit && node scripts/build.mjs && electron-builder"
+  },
+  "engines": {
+    "node": ">=14.17.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@typescript-eslint/eslint-plugin": "^5.11.0",
+    "@typescript-eslint/parser": "^5.11.0",
+    "@vitejs/plugin-vue": "^2.1.0",
+    "electron": "16.0.8",
+    "electron-builder": "^22.14.5",
+    "eslint": "^8.9.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-vue": "^8.4.1",
+    "typescript": "^4.5.5",
+    "vite": "^2.7.13",
+    "vite-plugin-resolve": "^1.4.3",
+    "vue": "^3.2.29",
+    "vue-tsc": "^0.31.1"
+  },
+  "env": {
+    "//": "Used in build scripts",
+    "PORT": 3344
+  },
+  "keywords": [
+    "vite",
+    "electron",
+    "vue3",
+    "rollup"
+  ],
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
