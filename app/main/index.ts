@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from 'electron'
 import { release } from 'os'
 import { createWindow, winObj } from './window'
+import startRouter from './router'
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
@@ -15,7 +16,10 @@ if (!app.requestSingleInstanceLock()) {
 
 let win:winObj = null
 
-app.whenReady().then(() => { createWindow(win) })
+app.whenReady().then(() => {
+  createWindow(win)
+  startRouter()
+})
 
 app.on('window-all-closed', () => {
   win = null
@@ -36,5 +40,6 @@ app.on('activate', () => {
     allWindows[0].focus()
   } else {
     createWindow(win)
+    startRouter()
   }
 })
