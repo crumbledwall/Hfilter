@@ -1,9 +1,6 @@
-import { ipcMain } from 'electron'
-import { mainHandler } from '../handlers/main'
+import { ipcResponse } from '../common'
+import { hello } from '../handlers/main'
 
 export default function mainRouter() {
-  ipcMain.on('sumbit', (event, arg) => {
-    console.log(arg)
-    event.sender.send('reply', mainHandler)
-  })
+  ipcResponse('helloReq', 'helloRes', hello)
 }

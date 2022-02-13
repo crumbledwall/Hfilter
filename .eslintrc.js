@@ -20,6 +20,7 @@ module.exports = {
   ],
   'parser': 'vue-eslint-parser',
   'rules': {
+    'max-len': [2, { code: 80 }],
     '@typescript-eslint/no-explicit-any': ['off'],
     'vue/max-attributes-per-line': [2, {
       'singleline': 10,
@@ -184,7 +185,8 @@ module.exports = {
       'nonwords': false
     }],
     'spaced-comment': [2, 'always', {
-      'markers': ['global', 'globals', 'eslint', 'eslint-disable', '*package', '!', ',']
+      'markers': ['global', 'globals', 'eslint',
+        'eslint-disable', '*package', '!', ',']
     }],
     'template-curly-spacing': [2, 'never'],
     'use-isnan': 2,
