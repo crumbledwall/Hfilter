@@ -4,6 +4,7 @@ import { defineConfig, Plugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import resolve from 'vite-plugin-resolve'
 import pkg from '../../package.json'
+import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -56,7 +57,7 @@ export function resolveElectron(
 /**
  * For all exported modules see https://www.electronjs.org/docs/latest/api/clipboard -> Renderer Process Modules
  */
-const electron = require("electron");
+import electron from 'electron'
 const {
   clipboard,
   nativeImage,

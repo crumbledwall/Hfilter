@@ -20,7 +20,15 @@ module.exports = {
   ],
   'parser': 'vue-eslint-parser',
   'rules': {
-    'max-len': [2, { code: 80 }],
+    'vue/comment-directive': 0,
+    'vue/multi-word-component-names': ['off'],
+    'max-len': [2, {
+      code: 80, 'ignoreComments': true,
+      'ignoreTrailingComments': true,
+      'ignoreUrls': true,
+      'ignoreStrings': true,
+      'ignoreTemplateLiterals': true,
+      'ignoreRegExpLiterals': true }],
     '@typescript-eslint/no-explicit-any': ['off'],
     'vue/max-attributes-per-line': [2, {
       'singleline': 10,

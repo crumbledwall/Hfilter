@@ -3,7 +3,8 @@ import { createServer, build } from 'vite'
 import electron from 'electron'
 
 /**
- * @type {(server: import('vite').ViteDevServer) => Promise<import('rollup').RollupWatcher>}
+ * @type {(server: import('vite').ViteDevServer) =>
+ * { Promise<import('rollup').RollupWatcher> }}
  */
 function watchMain(server) {
   /**
