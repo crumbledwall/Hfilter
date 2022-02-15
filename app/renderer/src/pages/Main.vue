@@ -13,7 +13,3 @@ export default defineComponent({
 <template>
   <MessageCard />
 </template>
-
-<style>
-
-</style>
