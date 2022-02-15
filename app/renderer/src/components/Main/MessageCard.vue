@@ -10,7 +10,7 @@ export default defineComponent({
     }
   },
   async created() {
-    this.message = await ipcRequest<string>('helloReq', 'helloRes', 'hello from renderer')
+    this.message = await ipcRequest<string>('hello', 'hello from renderer')
   }
 })
 
