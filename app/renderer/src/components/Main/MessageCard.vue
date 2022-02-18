@@ -17,7 +17,5 @@ export default defineComponent({
 </script>
 
 <template>
-    <div class="text-3xl">
-shows: {{message}}
-    </div>
+  <div class="text-3xl" />
 </template>

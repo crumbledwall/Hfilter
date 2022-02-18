@@ -12,4 +12,9 @@ export default class ProxyServer {
   public static getInstance() {
     return this.instance
   }
+
+  public static getProxyAddress() {
+    const options = this.instance.proxy.options
+    return `http://${options.host}:${options.port}`
+  }
 }
