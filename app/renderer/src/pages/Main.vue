@@ -11,5 +11,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <MessageCard />
+  <div>
+    <MessageCard />
+  </div>
 </template>

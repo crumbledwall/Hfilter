@@ -2,6 +2,12 @@ import { app, BrowserWindow } from 'electron'
 import { release } from 'os'
 import { createWindow, winObj } from './window'
 import startRouter from './router'
+import ProxyServer from './common/proxy'
+
+const startApp = function() {
+  ProxyServer.getInstance()
+  startRouter()
+}
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
@@ -18,7 +24,7 @@ let win:winObj = null
 
 app.whenReady().then(() => {
   createWindow(win)
-  startRouter()
+  startApp()
 })
 
 app.on('window-all-closed', () => {
@@ -40,6 +46,6 @@ app.on('activate', () => {
     allWindows[0].focus()
   } else {
     createWindow(win)
-    startRouter()
+    startApp()
   }
 })
