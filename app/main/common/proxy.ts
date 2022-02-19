@@ -1,15 +1,25 @@
 import Proxy from 'http-mitm-proxy'
+import { getConnection } from 'typeorm'
+import { Proxy as ProxyModel } from '../model'
 
 export default class ProxyServer {
-  private static instance: ProxyServer = new ProxyServer()
+  private static instance: ProxyServer
   private proxy: Proxy.IProxy
 
   private constructor() {
     this.proxy = Proxy()
-    this.proxy.listen({ host: '0.0.0.0', port: 5050 })
+    this.initProxy()
+  }
+
+  private async initProxy() {
+    const config = await getConnection('default').getRepository('proxy').findOne() as ProxyModel
+    this.proxy.listen({ host: config.host, port: config.port })
   }
 
   public static getInstance() {
+    if (!this.instance) {
+      this.instance = new ProxyServer()
+    }
     return this.instance
   }
 

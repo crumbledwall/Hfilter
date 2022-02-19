@@ -10,3 +10,4 @@ release
 .vscode
 
 .http-mitm-proxy
+hfilter.db

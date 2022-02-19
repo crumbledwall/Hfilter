@@ -2,9 +2,11 @@ import { app, BrowserWindow } from 'electron'
 import { release } from 'os'
 import { createWindow, winObj } from './window'
 import startRouter from './router'
-import ProxyServer from './common/proxy'
+import { ProxyServer, Database } from './common'
 
-const startApp = function() {
+const startApp = async() => {
+  const connection = await Database.connect()
+  await Database.init(connection)
   ProxyServer.getInstance()
   startRouter()
 }
