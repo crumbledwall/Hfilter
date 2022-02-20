@@ -44,7 +44,8 @@
   "dependencies": {
     "daisyui": "^2.0.2",
     "http-mitm-proxy": "^0.9.0",
-    "sqlite3": "^5.0.2",
+    "node-addon-api": "^4.3.0",
+    "sqlite3": "npm:@vscode/sqlite3@^5.0.7",
     "typeorm": "^0.2.43",
     "vue-router": "^4.0.12"
   }

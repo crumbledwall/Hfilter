@@ -17,7 +17,7 @@ export default class Database {
     const initConfig = {
       host: '0.0.0.0',
       port: 8080,
-      protocol: 'http'
+      dir: 'proxy-cert'
     }
     const proxyRepository = connection.getRepository(Proxy)
     const proxyConfig = await proxyRepository.find()

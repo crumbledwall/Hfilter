@@ -1,5 +1,5 @@
-import ipcResponse from './ipcResponse'
+import { ipcResponse, ipcResponseSync } from './ipcResponse'
 import ProxyServer from './proxy'
 import Database from './database'
 
-export { ipcResponse, ProxyServer, Database }
+export { ipcResponse, ipcResponseSync, ProxyServer, Database }

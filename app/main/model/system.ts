@@ -9,12 +9,12 @@ export class Proxy {
     port: number | undefined
 
   @Column('text')
-    protocol: string | undefined
+    dir: string | undefined
 
   constructor(host: string | undefined, port: number | undefined
-    , protocol: string | undefined) {
+    , dir: string | undefined) {
     this.host = host
     this.port = port
-    this.protocol = protocol
+    this.dir = dir
   }
 }

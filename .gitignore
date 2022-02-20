@@ -9,5 +9,5 @@ tmp
 release
 .vscode
 
-.http-mitm-proxy
+proxy-cert
 hfilter.db
