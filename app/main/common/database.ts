@@ -1,14 +1,16 @@
 import { createConnection, Connection } from 'typeorm'
-import { Proxy } from '../model'
+import { Proxy, Rule, Domain } from '../model'
 
 export default class Database {
   public static connect = async(): Promise<Connection> => {
     return await createConnection({
-      name: 'default',
+      name: 'db',
       type: 'sqlite',
       database: 'hfilter.db',
       entities: [
-        Proxy
+        Proxy,
+        Rule,
+        Domain
       ],
       synchronize: true
     })

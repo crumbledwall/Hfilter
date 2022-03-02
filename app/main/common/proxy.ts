@@ -10,15 +10,38 @@ export default class ProxyServer {
 
   private constructor() {
     this.proxy = Proxy()
-    this.initProxy()
+    this.init()
   }
 
-  private async initProxy() {
-    const config = await getConnection('default').getRepository('proxy').findOne() as ProxyModel
+  private async init() {
+    const config = await getConnection('db').getRepository('proxy').findOne() as ProxyModel
     this.proxy.listen({
       host: config.host,
       port: config.port,
       sslCaDir: config.dir
+    })
+    await this.loadRules()
+  }
+
+  public restart() {
+    this.proxy.close()
+    this.init()
+  }
+
+  private async loadRules() {
+    this.proxy.onRequest(function(ctx, callback) {
+      ctx.use(Proxy.gunzip)
+
+      ctx.onResponseData(function(ctx, chunk, callback) {
+        return callback(undefined, Buffer.from('pwned'))
+      })
+      return callback()
+    })
+
+    this.proxy.onResponseHeaders((ctx, callback) => {
+      ctx.serverToProxyResponse.headers['age'] = '1145141919'
+      ctx.serverToProxyResponse.headers['content-type'] = 'text/plain'
+      return callback()
     })
   }
 
@@ -49,9 +72,9 @@ export default class ProxyServer {
         fs.copyFile(`${this.instance.proxy.sslCaDir}/certs/ca.pem`,
           file, function(err) {
             if (err) {
-              reject(err.toString())
-              resolve('Cert export successed.')
+              reject({ message: err.toString(), type: 'error' })
             }
+            resolve({ message: 'Cert export successed.', type: 'success' })
           })
       })
     }
