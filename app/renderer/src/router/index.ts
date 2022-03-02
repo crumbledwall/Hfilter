@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Main from '../pages/Main.vue'
 import Cert from '../pages/Cert.vue'
+import Rule from '../pages/Rule.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -12,6 +13,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/cert',
     name: 'Cert',
     component: Cert
+  },
+  {
+    path: '/rule',
+    name: 'Rule',
+    component: Rule
   }
 ]
 

@@ -24,7 +24,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="navbar-Container">
+  <div class="navbar-container flex flex-col h-full">
     <div class="navbar bg-base-100">
       <div class="flex-none">
         <label for="my-drawer" class="btn btn-squire btn-ghost drawer-button">
@@ -42,14 +42,14 @@ export default defineComponent({
         </div>
       </div>
     </div>
-    <div class="fixed top-16 drawer w-full h-full rounded">
+    <div class="flex-1 top-16 drawer rounded">
       <input
         id="my-drawer"
         type="checkbox"
         :checked="show"
         class="drawer-toggle"
       >
-      <div class="drawer-content">
+      <div class="drawer-content relative">
         <slot />
       </div>
       <div class="drawer-side h-full">
@@ -60,6 +60,7 @@ export default defineComponent({
           bg-base-100 text-base-content"
         >
           <li><router-link to="/" class="rounded">Home</router-link></li>
+          <li><router-link to="/rule" class="rounded">Rule</router-link></li>
           <li><router-link to="/cert" class="rounded">Cert</router-link></li>
         </ul>
       </div>

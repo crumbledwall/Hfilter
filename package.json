@@ -47,6 +47,7 @@
     "node-addon-api": "^4.3.0",
     "sqlite3": "npm:@vscode/sqlite3@^5.0.7",
     "typeorm": "^0.2.43",
+    "vee-validate": "^4.5.9",
     "vue-router": "^4.0.12"
   }
 }
