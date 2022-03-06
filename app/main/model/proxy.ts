@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryColumn } from 'typeorm'
 
-@Entity()
+@Entity('proxy')
 export class Proxy {
   @PrimaryColumn('text')
     host: string | undefined

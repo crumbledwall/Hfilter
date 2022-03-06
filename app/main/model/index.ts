@@ -1,4 +1,4 @@
-import { Proxy } from './system'
+import { Proxy } from './proxy'
 import { Rule } from './rule'
 import { Domain } from './domain'
 

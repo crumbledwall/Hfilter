@@ -1,6 +1,6 @@
 import Proxy from 'http-mitm-proxy'
 import { getConnection } from 'typeorm'
-import { Proxy as ProxyModel } from '../model'
+import { Proxy as ProxyModel, Domain } from '../model'
 import { dialog } from 'electron'
 import fs from 'fs'
 
@@ -14,11 +14,11 @@ export default class ProxyServer {
   }
 
   private async init() {
-    const config = await getConnection('db').getRepository('proxy').findOne() as ProxyModel
+    const config = await getConnection('db').getRepository(ProxyModel).findOne()
     this.proxy.listen({
-      host: config.host,
-      port: config.port,
-      sslCaDir: config.dir
+      host: config?.host,
+      port: config?.port,
+      sslCaDir: config?.dir
     })
     await this.loadRules()
   }
@@ -29,18 +29,72 @@ export default class ProxyServer {
   }
 
   private async loadRules() {
+    const result = await getConnection('db').getRepository(Domain).find({ relations: ['rule'] })
     this.proxy.onRequest(function(ctx, callback) {
       ctx.use(Proxy.gunzip)
-
-      ctx.onResponseData(function(ctx, chunk, callback) {
-        return callback(undefined, Buffer.from('pwned'))
+      result.forEach((value: Domain) => {
+        if (value.name &&
+        ctx.clientToProxyRequest.headers.host?.indexOf(value?.name) !== -1) {
+          ctx.onResponseData(function(ctx, chunk, callback) {
+            let content = chunk.toString()
+            value.rule?.forEach((rule) => {
+              if (rule.position === 'body') {
+                switch (rule.type) {
+                  case 'add':
+                    content += rule.content
+                    break
+                  case 'replace':
+                    if (rule.old && rule.new) {
+                      content = content.replace(rule.old, rule.new)
+                    }
+                    break
+                  case 'remove':
+                    if (rule.old) {
+                      content = content.replace(rule.old, '')
+                    }
+                    break
+                  case 'raw':
+                    if (rule.content) {
+                      content = rule.content
+                    }
+                }
+              }
+            })
+            return callback(undefined, Buffer.from(content))
+          })
+        }
       })
+
       return callback()
     })
 
     this.proxy.onResponseHeaders((ctx, callback) => {
-      ctx.serverToProxyResponse.headers['age'] = '1145141919'
-      ctx.serverToProxyResponse.headers['content-type'] = 'text/plain'
+      result.forEach((value: Domain) => {
+        if (value.name &&
+          ctx.clientToProxyRequest.headers.host?.indexOf(value?.name) !== -1) {
+          value.rule?.forEach((rule) => {
+            if (rule.position === 'header' && rule.key) {
+              switch (rule.type) {
+                case 'add':
+                  ctx.serverToProxyResponse.headers[
+                    rule.key?.toLowerCase()
+                  ] = rule.content
+                  break
+                case 'replace':
+                  ctx.serverToProxyResponse.headers[
+                    rule.key?.toLowerCase()
+                  ] = rule.content
+                  break
+                case 'remove':
+                  delete ctx.serverToProxyResponse.headers[
+                    rule.key?.toLowerCase()
+                  ]
+              }
+            }
+          })
+        }
+      })
+
       return callback()
     })
   }

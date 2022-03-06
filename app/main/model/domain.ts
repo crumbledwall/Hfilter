@@ -1,14 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm'
+import { Entity, PrimaryColumn, OneToMany } from 'typeorm'
 import { Rule } from './rule'
 
-@Entity()
+@Entity('domain')
 export class Domain {
-  @PrimaryGeneratedColumn()
-    id: number | undefined
+  @PrimaryColumn('text')
+    name: string | undefined
 
-  @Column('text')
-    domain: string | undefined
-
-  @ManyToOne(() => Rule, rule => rule.domain)
-    rule: Rule | undefined
+  @OneToMany(() => Rule, rule => rule.domain)
+    rule: Rule[] | undefined
 }

@@ -9,5 +9,6 @@ tmp
 release
 .vscode
 
+out
 proxy-cert
 hfilter.db

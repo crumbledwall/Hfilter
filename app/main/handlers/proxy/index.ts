@@ -11,7 +11,28 @@ export async function exportCert() {
 }
 
 export async function addRule(rule: Rule) {
-  await getConnection('db').getRepository('rule').save(rule)
-  // return ProxyServer.getInstance().restart()
-  return 'debug ok'
+  const newRule = {
+    domain: rule.domain,
+    position: rule.position,
+    type: rule.type,
+    key: rule.key,
+    content: rule.content,
+    old: rule.old,
+    new: rule.new
+  }
+  const newDomain = {
+    name: rule.domain,
+    rule: [newRule]
+  }
+
+  const domain = await getConnection('db').getRepository('domain').find({
+    'name': rule.domain
+  })
+  if (domain.length === 0) {
+    await getConnection('db').getRepository('domain').save(newDomain)
+  }
+  await getConnection('db').getRepository('rule').save(newRule)
+
+  ProxyServer.getInstance().restart()
+  return { 'messgae': 'Rule add success' }
 }
