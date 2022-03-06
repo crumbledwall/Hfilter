@@ -10,5 +10,6 @@ export type Rule = {
     type: string,
     old?: string,
     new?: string,
+    key?: string,
     content?: string
 }

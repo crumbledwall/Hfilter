@@ -24,7 +24,7 @@ export default defineComponent({
 
 <template>
   <div
-    :class="`absolute top-4 alert shadow-lg alert-info w-2/3 duration-300
+    :class="`absolute top-4 alert shadow-lg alert-info z-10 w-2/3 duration-300
       ${showAlert()}`"
   >
     <div class="w-full">
