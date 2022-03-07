@@ -1,13 +1,5 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 import AddRule from '../components/Rule/AddRule.vue'
-
-export default defineComponent({
-  name: 'Rule',
-  components: {
-    AddRule
-  }
-})
 </script>
 
 <template>

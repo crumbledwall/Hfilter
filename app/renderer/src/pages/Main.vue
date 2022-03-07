@@ -1,13 +1,5 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 import MessageCard from '../components/Main/MessageCard.vue'
-
-export default defineComponent({
-  name: 'Main',
-  components: {
-    MessageCard
-  }
-})
 </script>
 
 <template>

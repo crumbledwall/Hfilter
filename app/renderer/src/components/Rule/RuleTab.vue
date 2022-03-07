@@ -1,33 +1,30 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import { defineProps, computed } from 'vue'
 import type { Rule } from '../../utils/interface'
 
-export default defineComponent({
-  name: 'RuleTab',
-  props: {
-    position: {
-      type: String,
-      default: ''
-    },
-    type: {
-      type: String,
-      default: ''
-    },
-    rule: {
-      type: Object,
-      default: {} as Rule
-    }
+const props = defineProps({
+  position: {
+    type: String,
+    default: ''
   },
-  methods: {
-    showTab() {
-      if (this.position === this.rule.position &&
-      this.type === this.rule.type) {
-        return true
-      }
-      return false
-    }
+  type: {
+    type: String,
+    default: ''
+  },
+  rule: {
+    type: Object,
+    default: {} as Rule
   }
 })
+
+const showTab = computed(() => {
+  if (props.position === props.rule.position &&
+      props.type === props.rule.type) {
+    return true
+  }
+  return false
+})
+
 </script>
 
 <template>
@@ -37,7 +34,7 @@ export default defineComponent({
     enter-to-class="opacity-100"
     mode="out-in"
   >
-    <div v-if="showTab()" class="flex flex-col">
+    <div v-if="showTab" class="flex flex-col">
       <slot />
     </div>
   </transition>

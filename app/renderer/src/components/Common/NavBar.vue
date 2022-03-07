@@ -1,25 +1,14 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { getProxyAddress } from '../../api/proxy'
 
-export default defineComponent({
-  name: 'NavBar',
-  data() {
-    return {
-      proxyAddress: '',
-      show: false
-    }
-  },
-  created() {
-    getProxyAddress().then((data) => {
-      this.proxyAddress = data
-    })
-  },
-  methods: {
-    showOrClose() {
-      this.show = !this.show
-    }
-  }
+const proxyAddress = ref<string>('')
+const show = ref<boolean>(false)
+
+onMounted(() => {
+  getProxyAddress().then((data) => {
+    proxyAddress.value = data
+  })
 })
 </script>
 

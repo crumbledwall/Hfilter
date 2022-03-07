@@ -1,19 +1,11 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import ipcRequest from '../../utils/ipcRequest'
 
-export default defineComponent({
-  name: 'MessageCard',
-  data() {
-    return {
-      message: ''
-    }
-  },
-  async created() {
-    this.message = await ipcRequest<string>('hello', 'hello from renderer')
-  }
+const message = ref<string>('')
+onMounted(async() => {
+  message.value = await ipcRequest<string>('hello', 'hello from renderer')
 })
-
 </script>
 
 <template>

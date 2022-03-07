@@ -1,33 +1,22 @@
-<script lang="ts">
+<script setup lang="ts">
 import { exportCert } from '../../api/proxy'
-import { defineComponent } from 'vue'
+import { ref } from 'vue'
 import type { ResponseData } from '../../utils/interface'
 import AlertMessage from '../Common/AlertMessage.vue'
 
-export default defineComponent({
-  name: 'ExportCert',
-  components: {
-    AlertMessage
-  },
-  data() {
-    return {
-      message: '',
-      show: false
-    }
-  },
-  methods: {
-    exportCert() {
-      exportCert().then((res) => { if (res) this.alertMessage(res) })
-    },
-    alertMessage(res:ResponseData) {
-      this.message = res.message
-      this.show = true
-      setTimeout(() => {
-        this.show = false
-      }, 2000)
-    }
-  }
-})
+const message = ref<string>('')
+const show = ref<boolean>(false)
+
+const callExportCert = () => {
+  exportCert().then((res) => { if (res) alertMessage(res) })
+}
+const alertMessage = (res:ResponseData) => {
+  message.value = res.message
+  show.value = true
+  setTimeout(() => {
+    show.value = false
+  }, 2000)
+}
 
 </script>
 
@@ -40,7 +29,10 @@ export default defineComponent({
         <p>You can import the the Cert to your Web browser
           for proxying https requests.</p>
         <div class="justify-end card-actions">
-          <button class="btn btn-primary" @click="exportCert">Export</button>
+          <button
+            class="btn btn-primary"
+            @click="callExportCert"
+          >Export</button>
         </div>
       </div>
     </div>
